@@ -20,8 +20,8 @@ library(plyr)
 library(rhandsontable)
 library(highcharter)
 library(plotly)
-library(shinyWidgets)
-library(formattable)
+#library(shinyWidgets) # ///// !!!! \\\\\ not available for R 3.6 
+library(formattable) 
 
 
 
@@ -63,7 +63,7 @@ header <- dashboardHeader(disable=TRUE)
 
 header_vMJ <- dashboardHeader(title = "R&D Shiny",disable=TRUE)  
 sidebar_vMJ <- dashboardSidebar(  disable = TRUE, sidebarMenu(    #m#enuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),  #,href = "https://davidjhindley.com/shiny/claimsreserving/"
-  menuItem("GIRA Ã l'origine...", icon = icon("send",lib='glyphicon'),         
+  menuItem("GIRA Ã l'origine...", icon = icon("send",lib='glyphicon'),         
            href = "https://davidjhindley.com/shiny/claimsreserving/")  ))
 jsResetCode <- "shinyjs.resetapp = function() {history.go(0);}" # Define the js method that resets the page
 jscloseWindowCode<-"shinyjs.closeWindow = function() { window.close(); }" # define the js method that closes window (doesn't seem to work in Chrome or Safari though)
@@ -120,8 +120,8 @@ body<-dashboardBody(fluidPage
                                                                  source("DatatriangleinputCL.R",local=TRUE)$value,
                                                                  
                                                                  selectInput("unitselect",
-                                                                             "UnitÃ© d'affichage des montants:",
-                                                                             c("UnitÃ©s"=1,"Centaines"=100,"Milliers"=1000,"Millions"=1000000,"Milliards"=1000000000),selected=1)
+                                                                             "Unité d'affichage des montants:",
+                                                                             c("Unités"=1,"Centaines"=100,"Milliers"=1000,"Millions"=1000000,"Milliards"=1000000000),selected=1)
                                                                ),
                                                                wellPanel(
                                                                  materialSwitch(inputId="Vision_globale_montants", label="Visuel des montants", status = "warning", right = TRUE),
@@ -179,8 +179,8 @@ body<-dashboardBody(fluidPage
                                                                                       DTOutput("User_Entry"),width=12   )),
                                                                        hr(),
                                                                        column(12,
-                                                                              box(    title = "ParamÃ¨tres de sauvegarde"   ,status = "primary"    ,solidHeader = TRUE     ,collapsible = TRUE     ,
-                                                                                      actionButton('buttons', 'Sauvegardez vos sÃ©lections avant de remonter vers vos suppressions',width='990px'),width=12   )),
+                                                                              box(    title = "Paramètres de sauvegarde"   ,status = "primary"    ,solidHeader = TRUE     ,collapsible = TRUE     ,
+                                                                                      actionButton('buttons', 'Sauvegardez vos sélections avant de remonter vers vos suppressions',width='990px'),width=12   )),
                                                                        hr(),
                                                                        column(12,
                                                                               box(    title = "Personnalisation"   ,status = "primary"    ,solidHeader = TRUE     ,collapsible = TRUE     ,
@@ -195,19 +195,19 @@ body<-dashboardBody(fluidPage
                                                                      
                                                                      
                                                             ),
-                                                            tabPanel("RÃ©sultats",
+                                                            tabPanel("Résultats",
                                                                      fluidRow(
                                                                        column(12,
-                                                                              h4("Triangle projetÃ©"),
+                                                                              h4("Triangle projeté"),
                                                                               DT::dataTableOutput("CL_triproj")),
                                                                        hr(),
                                                                        column(12,
-                                                                              h4("En cas de projection de triangle de rÃ©glements..."),
-                                                                              materialSwitch(inputId="d_d", label="IntÃ©grer les provisions dossiers/dossiers", status = "info", right = TRUE)),
+                                                                              h4("En cas de projection de triangle de réglements..."),
+                                                                              materialSwitch(inputId="d_d", label="Intégrer les provisions dossiers/dossiers", status = "info", right = TRUE)),
                                                                        
                                                                        hr(),
                                                                        column(12,
-                                                                              h4("RÃ©sumÃ© des rÃ©sultats"),
+                                                                              h4("Résumé des résultats"),
                                                                               DT::dataTableOutput("CL_results1")))
                                                             )
                                                      ) #### end of tabsetPanel for results and graphs
@@ -235,15 +235,15 @@ body<-dashboardBody(fluidPage
                                                                
                                                                
                                                                wellPanel(
-                                                                 materialSwitch(inputId="Switch_ChainLadder", label="SÃ©parer du ChainLadder", status = "info", right = TRUE),
+                                                                 materialSwitch(inputId="Switch_ChainLadder", label="Séparer du ChainLadder", status = "info", right = TRUE),
                                                                  conditionalPanel(
                                                                    condition='input.Switch_ChainLadder',
-                                                                   selectInput("dataset_boot", label="SÃ©lection de triangle",
+                                                                   selectInput("dataset_boot", label="Sélection de triangle",
                                                                                choices =Triangle_options)
                                                                  ),
                                                                  conditionalPanel(
                                                                    condition='input.Switch_ChainLadder==false',
-                                                                   materialSwitch(inputId="RecupCoef", label="RÃ©cupÃ©rer de coefficients", status = "info", right = TRUE)
+                                                                   materialSwitch(inputId="RecupCoef", label="Récupérer de coefficients", status = "info", right = TRUE)
                                                                  ),
                                                                  conditionalPanel(
                                                                    condition='input.RecupCoef',
@@ -254,7 +254,7 @@ body<-dashboardBody(fluidPage
                                                                    materialSwitch(inputId="Recentrage", label="Recentrer sur le deterministe", status = "warning", right = TRUE),
                                                                    conditionalPanel(
                                                                      condition='input.Recentrage',
-                                                                     awesomeRadio('methode',label='MÃ©thode de recentrage',choices=c("Additive" = "additive",
+                                                                     awesomeRadio('methode',label='Méthode de recentrage',choices=c("Additive" = "additive",
                                                                                                                                      "Multiplicative"="multiplicative"),selected="additive")),
                                                                    conditionalPanel(
                                                                      condition='input.Recentrage',
@@ -265,20 +265,20 @@ body<-dashboardBody(fluidPage
                                                                  
                                                                ),
                                                                wellPanel(
-                                                                 selectInput("unitselect_CLBoot","UnitÃ© d'affichage:",
-                                                                             c("UnitÃ©s"=1,"Centaines"=100,"Milliers"=1000,"Millions"=1000000,"Milliards"=1000000000),selected=1
+                                                                 selectInput("unitselect_CLBoot","Unité d'affichage:",
+                                                                             c("Unités"=1,"Centaines"=100,"Milliers"=1000,"Millions"=1000000,"Milliards"=1000000000),selected=1
                                                                  ),
-                                                                 materialSwitch(inputId="Vision_globale_residus", label="Visuel des rÃ©sidus", status = "info", right = TRUE),
+                                                                 materialSwitch(inputId="Vision_globale_residus", label="Visuel des résidus", status = "info", right = TRUE),
                                                                  conditionalPanel(
                                                                    condition='input.Vision_globale_residus',
                                                                    selectInput('color_type_boot','Choix de visualisation',
                                                                                c('Nivellation' = 'bar_boot',
                                                                                  'Gradient de couleurs'='gradient_boot')))),
                                                                wellPanel(
-                                                                 materialSwitch(inputId="Param", label="ParamÃ©trique", status = "info", right = TRUE),
+                                                                 materialSwitch(inputId="Param", label="Paramétrique", status = "info", right = TRUE),
                                                                  conditionalPanel(
                                                                    condition='input.Param',
-                                                                   awesomeRadio("bootprocessdist", "Distribution des rÃ©sidus", 
+                                                                   awesomeRadio("bootprocessdist", "Distribution des résidus", 
                                                                                 choices = list("ODP"=1,"Gamma"=2),selected = 2))
                                                                ),
                                                                wellPanel(
@@ -286,7 +286,7 @@ body<-dashboardBody(fluidPage
                                                                               min = 0, max = 1000000, value = 5000)
                                                                ),
                                                                wellPanel(
-                                                                 awesomeRadio("seedoption","Option sur la graine de simulation",choices=c("Ne pas prÃ©ciser"=0,"PrÃ©ciser"=1),selected=0),
+                                                                 awesomeRadio("seedoption","Option sur la graine de simulation",choices=c("Ne pas préciser"=0,"Préciser"=1),selected=0),
                                                                  conditionalPanel(
                                                                    condition = "input.seedoption == 1",
                                                                    numericInput("CLBootstrap_seed", "Simulation seed value",value=1328967780,
@@ -300,12 +300,12 @@ body<-dashboardBody(fluidPage
                                                                )#,
                                                                
                                                                
-                                                               #fluidRow(actionButton("InfoCLBoot1","Aide",icon = icon("info")),actionButton("ResetCLBootinputs","RÃ©initialisation",icon = icon("refresh")))
+                                                               #fluidRow(actionButton("InfoCLBoot1","Aide",icon = icon("info")),actionButton("ResetCLBootinputs","Réinitialisation",icon = icon("refresh")))
                                                      ) # close overall assumption wellPanel
                                               ),# close first three columns
                                               column(10,
                                                      tabBox(width=10,
-                                                            tabPanel("DonnÃ©es & rÃ©sidus",
+                                                            tabPanel("Données & résidus",
                                                                      fluidRow(
                                                                        
                                                                        column(12,
@@ -326,20 +326,20 @@ body<-dashboardBody(fluidPage
                                                                        
                                                                        
                                                                        hr(),
-                                                                       box(    title = "RÃ©sidus simples"    ,solidHeader = TRUE     ,collapsible = TRUE     ,
+                                                                       box(    title = "Résidus simples"    ,solidHeader = TRUE     ,collapsible = TRUE     ,
                                                                                uiOutput("ui_bootSimple"),width=12 ,status="primary"),
                                                                        hr(),
-                                                                       box(    title = "RÃ©sidus normalisÃ©s"    ,solidHeader = TRUE     ,collapsible = TRUE     ,
+                                                                       box(    title = "Résidus normalisés"    ,solidHeader = TRUE     ,collapsible = TRUE     ,
                                                                                uiOutput("ui_boot"),width=12 ,status="primary")
                                                                      )
                                                                      #DT::dataTableOutput("Bootstrap_residuals"),
                                                                      
                                                             ),
-                                                            tabPanel("RÃ©sultats & Quantiles de bootstrap",
+                                                            tabPanel("Résultats & Quantiles de bootstrap",
                                                                      fluidRow(
                                                                        column(12,
                                                                               hr(),
-                                                                              h5("RÃ©sumÃ© des rÃ©sultats"),
+                                                                              h5("Résumé des résultats"),
                                                                               DT::dataTableOutput("Bootstrap_results"),
                                                                               hr(),
                                                                               h5("Quantiles"),
@@ -362,11 +362,11 @@ body<-dashboardBody(fluidPage
                                                                               
                                                                               box(    title ='Histogramme des simulations de charges',status = "primary"    ,solidHeader = TRUE     ,collapsible = TRUE     ,
                                                                                       plotlyOutput("Bootstrap_graphs1"),width=6 ),
-                                                                              box(    title ='Fonction de rÃ©partition',status = "primary"    ,solidHeader = TRUE     ,collapsible = TRUE     , 
+                                                                              box(    title ='Fonction de répartition',status = "primary"    ,solidHeader = TRUE     ,collapsible = TRUE     , 
                                                                                       highchartOutput("Bootstrap_graphs2"),width=6))), #, height = 500
                                                                      hr(),
                                                                      fluidRow(
-                                                                       column(6, h5("RÃ©sultats de simulation par cohorte"),
+                                                                       column(6, h5("Résultats de simulation par cohorte"),
                                                                               plotOutput("Bootstrap_graphs3")),
                                                                        column(6, h5("Back test latest dev yr"),
                                                                               plotOutput("Bootstrap_graphs4"))) #, height = 500
@@ -376,10 +376,10 @@ body<-dashboardBody(fluidPage
                                                                      #                 plotOutput(outputId="Bootstrap_graphs1")
                                                                      #        ),
                                                                      #        
-                                                                     #        tabPanel("Fonction de rÃ©partition",
+                                                                     #        tabPanel("Fonction de répartition",
                                                                      #                 plotOutput(outputId="Bootstrap_graphs2")
                                                                      #        ),
-                                                                     #        tabPanel("RÃ©sultats de simulation par cohort",
+                                                                     #        tabPanel("Résultats de simulation par cohort",
                                                                      #                 plotOutput(outputId="Bootstrap_graphs3")
                                                                      #        ),
                                                                      #        

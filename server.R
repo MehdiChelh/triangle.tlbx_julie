@@ -1,7 +1,7 @@
 
 
-source("Fonctions_vMJ.R",encoding='UTF-8')
-source("BootChain_new_vMJ.R",encoding='UTF-8')
+source("Fonctions_vMJ.R", encoding='UTF-8')
+source("BootChain_new_vMJ.R", encoding='UTF-8')
 attach(loadNamespace("ChainLadder"), name = "ChainLadder_all")
 
 
@@ -231,7 +231,7 @@ server <- function(input, output, session) {
     
     link_out <-rbind(chain1_sum,CustomCoef)
     row.names(link_out)[d+1]  <-"Moyenne simple"
-    row.names(link_out)[d+3]  <-"Moyenne retraitÃ©e"
+    row.names(link_out)[d+3]  <-"Moyenne retraitée"
     
     link_out <- link_out[c(d+1, d+3),]
     
@@ -241,7 +241,7 @@ server <- function(input, output, session) {
     
     LastRow  <- data()
     TempLastRow <- LastRow[,-length(LastRow)]
-    # print('DonnÃ©es sur TempLastRow <- LastRow[,-length(LastRow)] ')
+    # print('Données sur TempLastRow <- LastRow[,-length(LastRow)] ')
     # print(class(TempLastRow))
     # print(dim(TempLastRow))
     # print(length(TempLastRow))
@@ -251,7 +251,7 @@ server <- function(input, output, session) {
     # print('link_out = ')
     # print(link_out)
     
-    # Remplacement les valeur Ã©ditÃ©es
+    # Remplacement les valeur éditées
     mapUser_Entry <- input$User_Entry_cell_edit
     i             <- dim(link_out)[1]
     j             <- mapUser_Entry$col
@@ -478,7 +478,7 @@ server <- function(input, output, session) {
   
   output$CL_triproj <- DT::renderDataTable({
     validate(
-      need(input$LinkratiosCustom_cells_selected != "", "Veuillez ne sÃ©lectionner qu'une mÃ©thode par annÃ©e de developpement")
+      need(input$LinkratiosCustom_cells_selected != "", "Veuillez ne sélectionner qu'une méthode par année de developpement")
     )
     triangle_charge   <- dataset_CLInput()
     vecteur_coef      <- CoefFinaux() #CoefFinaux()
@@ -534,7 +534,7 @@ server <- function(input, output, session) {
   
   output$CL_results1   <- DT::renderDataTable({
     validate(
-      need(input$LinkratiosCustom_cells_selected != "", "Veuillez choisir tous vos facteurs de dÃ©veloppement")
+      need(input$LinkratiosCustom_cells_selected != "", "Veuillez choisir tous vos facteurs de développement")
     )
     Final <- Final()
     colonnes           <- c('Diagonale')
@@ -744,10 +744,10 @@ server <- function(input, output, session) {
     MackDT    <- as.numeric(MackDT())
     
     h <- highchart() %>%
-      # hc_title(text = paste("Fonction de rÃ©partition"),
+      # hc_title(text = paste("Fonction de répartition"),
       #          style = list(fontSize = "20px")) %>% 
       
-      hc_xAxis(categories = MackDTCat,title=list(text="DÃ©veloppement") ) %>% #categories=boot_run_fdr ,
+      hc_xAxis(categories = MackDTCat,title=list(text="Développement") ) %>% #categories=boot_run_fdr ,
       hc_yAxis(title = list(text = paste("Distribution des sigmas de Mack"))) %>% 
       hc_add_series(data = MackDT,type = "spline",  name=paste(""), color="#f0c300")%>%  ##8b0000
       hc_tooltip( crosshairs = TRUE,backgroundColor = "white", borderWidth = 2,shared = TRUE)
@@ -895,7 +895,7 @@ server <- function(input, output, session) {
     
     resid_out<-round(resid_out,digits=3)
     datatable(resid_out,   extensions=c('Buttons'),class = 'stripe compact',selection = 'none',
-              options=list(dom='t',buttons=list('Copier','Imprimer',list(extend='collection',buttons=c('csv','excel','pdf'),text='TÃ©lÃ©charger'))
+              options=list(dom='t',buttons=list('Copier','Imprimer',list(extend='collection',buttons=c('csv','excel','pdf'),text='Télécharger'))
                            ,scrollY=TRUE,scrollX=TRUE,ordering=FALSE,paging=FALSE,searching=FALSE,info=FALSE,
                            columnDefs=list(list(className='dt-left',targets='_all'))))%>%
       formatStyle(colnames(resid_out),
@@ -1034,7 +1034,7 @@ server <- function(input, output, session) {
     }
     resid_SimpleOut<-round(resid_SimpleOut,digits=3)
     datatable(resid_SimpleOut,   extensions=c('Buttons'),class = 'stripe compact',selection = 'none',
-              options=list(dom='t',buttons=list('Copier','Imprimer',list(extend='collection',buttons=c('csv','excel','pdf'),text='TÃ©lÃ©charger'))
+              options=list(dom='t',buttons=list('Copier','Imprimer',list(extend='collection',buttons=c('csv','excel','pdf'),text='Télécharger'))
                            ,scrollY=TRUE,scrollX=TRUE,ordering=FALSE,paging=FALSE,searching=FALSE,info=FALSE,
                            columnDefs=list(list(className='dt-left',targets='_all'))))%>%
       formatStyle(colnames(resid_SimpleOut),
@@ -1256,12 +1256,12 @@ server <- function(input, output, session) {
       names(boot_run_fdr) <- c('Quantiles','Fdr')
       
       h <- highchart() %>%
-        # hc_title(text = paste("Fonction de rÃ©partition"),
+        # hc_title(text = paste("Fonction de répartition"),
         #          style = list(fontSize = "20px")) %>% 
         
         hc_xAxis(categories = boot_run_fdr$Quantiles,title=list(text="Quantiles") ) %>% #categories=boot_run_fdr ,
         hc_yAxis(title = list(text = paste("Fdr()"))) %>% 
-        hc_add_series(data = boot_run_fdr$Fdr,type = "spline",  name=paste("RÃ©partition des IBNR"), color="#f0c300")%>%  ##8b0000
+        hc_add_series(data = boot_run_fdr$Fdr,type = "spline",  name=paste("Répartition des IBNR"), color="#f0c300")%>%  ##8b0000
         hc_tooltip( crosshairs = TRUE,backgroundColor = "white", borderWidth = 2,shared = TRUE)
       h
       
