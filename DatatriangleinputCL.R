@@ -14,6 +14,13 @@
 #data input box
 #Date: 1 October 2017
 #data input box simple version in new layout
+
+
+Triangle_options<-c("UKMotor",
+                    "MW2008",
+                    "RAA", 
+                    "MW2014",
+                    "GenIns")
 selectInput("datasetCL", label="Selection du triangle",
                 choices =Triangle_options)
     
