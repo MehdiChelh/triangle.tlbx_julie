@@ -3,6 +3,9 @@
 source("./BootChain_new_vMJ.R")
 source("./Fonctions_vMJ.R")
 
+attach(loadNamespace("ChainLadder"), name = "ChainLadder_all")
+
+
 
 server <- function(input, output, session) {
   
