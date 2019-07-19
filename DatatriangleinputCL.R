@@ -14,7 +14,7 @@
 #data input box
 #Date: 1 October 2017
 #data input box simple version in new layout
-selectInput("datasetCL", label="Sélection du triangle",
+selectInput("datasetCL", label="Selection du triangle",
                 choices =Triangle_options)
     
     

@@ -29,9 +29,9 @@ Plot_settings <-function(triangle,m){
 Plot_settings(UKMotor,m)
 
 Plot_ggplot  <- function(Triangle,map,m){
-  # m   : derniere cellule cliquee
-  # map : liste des cellules selectionne
-  # Triangle doit etre deja bien parametre
+  # m   : derniere cellule cliquée
+  # map : liste des cellules sélectionnées
+  # Triangle doit être déjà bien paramétré
   Charges <- Triangle
   if(length(m)==0){
     m<-as.data.frame(cbind(row=0,col=0))
@@ -156,7 +156,7 @@ Plot_ggplot  <- function(Triangle,map,m){
                                      sec.axis = sec_axis(~ .*a+b, name = 'Montants'),#)+
                                      limits=c(min(Triangle$Link_ratio),max(Triangle$Link_ratio)))+
                                      
-                  scale_x_continuous('Annees de survenance', breaks = Triangle$Annee)+
+                  scale_x_continuous('Années de survenance', breaks = Triangle$Annee)+
                   
                   theme_minimal() +#theme(legend.position = "none") +
                   
@@ -178,7 +178,7 @@ Plot_ggplot  <- function(Triangle,map,m){
                  #ggplotly(,
                   
                   
-                  # xlab('Annees de survenance') +
+                  # xlab('Années de survenance') +
                   # ylab('Link ratios'),
                 #tooltip=c('origin','LR','intercept')
      )%>%
@@ -205,16 +205,16 @@ Plot_ggplot(UKMotor,map,m)
 Plot_highchart <- function(triangle,m){
   triangle <- Plot_settings(triangle,m) 
   h <- highchart() %>%
-        hc_title(text = paste("Coefficients de developpement n°",triangle$dev[1]),
+        hc_title(text = paste("Coefficients de développement n°",triangle$dev[1]),
                  style = list(fontSize = "20px")) %>% 
         
-        hc_xAxis(categories = as.numeric(triangle$origin), title=list(text="Annees") ) %>%
+        hc_xAxis(categories = as.numeric(triangle$origin), title=list(text="Années") ) %>%
         hc_yAxis_multiples(
           #opposite = TRUE,
-          list(title = list(text = paste("Coefficients de developpement"))),
+          list(title = list(text = paste("Coefficients de développement"))),
           list(title = list(text = paste("Montants de charge")), opposite = TRUE)) %>% 
         hc_add_series(data = triangle$value, type = "column", yAxis = 1,  name=paste("Montants de charge"),color="#f0c300")%>% 
-        hc_add_series(data = triangle$LR, type = "spline", yAxis = 0 ,name=paste("coefficients de developpement"),color="#8B0000")%>%
+        hc_add_series(data = triangle$LR, type = "spline", yAxis = 0 ,name=paste("coefficients de développement"),color="#8B0000")%>%
         #hc_add_series(data = triangle$LR, type = "point", yAxis = 0, size=4)%>%
         hc_tooltip( crosshairs = TRUE,backgroundColor = "#FCFFC5", borderWidth = 2,shared = TRUE) 
   return(h)
@@ -246,7 +246,7 @@ Project_triangle <- function(triangle_charge,vecteur_coef,TailFactor){
     }
   }
   
-  if(sum(triangle[,dim(triangle)[2]])==sum(Charge_Ultime)){cat('Verification - OK')}
+  if(sum(triangle[,dim(triangle)[2]])==sum(Charge_Ultime)){cat('Vérification - OK')}
   return(list(triangle, Charge_Ultime))
 } 
  

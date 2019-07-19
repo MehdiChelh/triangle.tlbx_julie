@@ -20,10 +20,8 @@ library(plyr)
 library(rhandsontable)
 library(highcharter)
 library(plotly)
-#library(shinyWidgets) # ///// !!!! \\\\\ not available for R 3.6 
-library(formattable) 
-
-
+library(shinyWidgets)
+library(formattable)
 
 
 Triangle_options<-c("UKMotor",
@@ -32,8 +30,6 @@ Triangle_options<-c("UKMotor",
                     "MW2014",
                     "GenIns")
 
-
-# options(shiny.sanitize.errors = TRUE)
 
 
 #Special CSS for loading page.
@@ -51,25 +47,20 @@ color: #FFFFFF;
 }
 "
 
-
-
-
-
 header <- dashboardHeader(disable=TRUE)
 # sidebar <- dashboardSidebar(disable=TRUE)
 
 
-
-
 header_vMJ <- dashboardHeader(title = "R&D Shiny",disable=TRUE)  
 sidebar_vMJ <- dashboardSidebar(  disable = TRUE, sidebarMenu(    #m#enuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),  #,href = "https://davidjhindley.com/shiny/claimsreserving/"
-  menuItem("GIRA Ã l'origine...", icon = icon("send",lib='glyphicon'),         
+  menuItem("GIRA Ã l'origine...", icon = icon("send",lib='glyphicon'),         
            href = "https://davidjhindley.com/shiny/claimsreserving/")  ))
 jsResetCode <- "shinyjs.resetapp = function() {history.go(0);}" # Define the js method that resets the page
 jscloseWindowCode<-"shinyjs.closeWindow = function() { window.close(); }" # define the js method that closes window (doesn't seem to work in Chrome or Safari though)
 
 
 
+####################################################################### Body         ###########################################################
 body<-dashboardBody(fluidPage
                     (theme=shinytheme("lumen"),
                       useShinyjs(),
@@ -117,7 +108,7 @@ body<-dashboardBody(fluidPage
                                                      wellPanel(id="CL_inputpanel",    #main wellPanel for assumptions
                                                                wellPanel(
                                                                  
-                                                                 source("DatatriangleinputCL.R",local=TRUE)$value,
+                                                                 source("DatatriangleinputCL.R"),
                                                                  
                                                                  selectInput("unitselect",
                                                                              "Unité d'affichage des montants:",
@@ -411,6 +402,8 @@ body<-dashboardBody(fluidPage
 
 
 ui <- dashboardPage(header_vMJ, sidebar_vMJ, body)
+
+
 
 
 

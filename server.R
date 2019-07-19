@@ -1,10 +1,5 @@
 
 
-source("Fonctions_vMJ.R")
-source("BootChain_new_vMJ.R")
-attach(loadNamespace("ChainLadder"), name = "ChainLadder_all")
-
-
 server <- function(input, output, session) {
   
   
@@ -1083,34 +1078,23 @@ server <- function(input, output, session) {
       print('ok1')
       
       if(input$sans_TF==1){
-        print('ok2')
         if(input$d_d){
-          print('ok3')
           deter <- as.vector(Final[1:(dim(Final)[1]-1),5]*as.numeric(as.character(input$unitselect)))
           deter <- array(deter,dim=c(length(deter),1,input$Boot_sims)) 
-          print('ok3')
         }      
         if(input$d_d==FALSE){
-          print('ok4')
           deter <- as.vector(Final[1:(dim(Final)[1]-1),4]*as.numeric(as.character(input$unitselect)))
           deter <- array(deter,dim=c(length(deter),1,input$Boot_sims)) 
-          print('ok4')
         }
-        print('ok2')
       }
       if(input$sans_TF==0){
-        print('ok2')
         if(input$d_d){
-          print('ok3')
           deter <- as.vector(Final[1:(dim(Final)[1]-1),6]*as.numeric(as.character(input$unitselect)))
           deter <- array(deter,dim=c(length(deter),1,input$Boot_sims)) 
-          print('ok3')
         }      
         if(input$d_d==FALSE){
-          print('ok4')
           deter <- as.vector(Final[1:(dim(Final)[1]-1),5]*as.numeric(as.character(input$unitselect)))
           deter <- array(deter,dim=c(length(deter),1,input$Boot_sims)) 
-          print('ok4')
         }
       }
       
@@ -1127,12 +1111,8 @@ server <- function(input, output, session) {
     if(input$Recentrage){
       print('ok1')
       if(input$methode=='additive'){
-        print('ok2')
         Bootresults$IBNR.ByOrigin <- First_Bootresults$IBNR.ByOrigin - sto + deter
-        print(dim(First_Bootresults$IBNR.ByOrigin))
-        print(dim(deter))
-        print(dim(sto))
-        print('ok2')
+        
       }
       
       if(input$methode=='multiplicative'){
@@ -1144,8 +1124,6 @@ server <- function(input, output, session) {
         
         print(which(sto==0))
         print('sto dans Recentrage= ')
-        # Bootresults$IBNR.ByOrigin  <- First_Bootresults$IBNR.ByOrigin*deter/ifelse(sto!=0,sto,1)
-        # Bootresults$IBNR.ByOrigin  <- First_Bootresults$IBNR.ByOrigin*deter/sto
       }
       Bootresults$IBNR.Totals   <- apply(Bootresults$IBNR.ByOrigin,3,sum)   
       
@@ -1232,7 +1210,6 @@ server <- function(input, output, session) {
       h <- ggplotly(
         ggplot(boot_run_10000) +
           geom_bar(aes(x=Montants_IBNR),color="#f2f3f4",fill="#f0c300")+
-          #geom_line(aes(x=Montants_IBNR),color="#f0c300")+
           geom_vline(aes(xintercept = sto,colour='stochastique'))+
           geom_vline(aes(xintercept = deter,colour=ifelse(input$Recentrage,'deterministe','stochastique')))+
           theme_minimal()+
@@ -1256,9 +1233,6 @@ server <- function(input, output, session) {
       names(boot_run_fdr) <- c('Quantiles','Fdr')
       
       h <- highchart() %>%
-        # hc_title(text = paste("Fonction de répartition"),
-        #          style = list(fontSize = "20px")) %>% 
-        
         hc_xAxis(categories = boot_run_fdr$Quantiles,title=list(text="Quantiles") ) %>% #categories=boot_run_fdr ,
         hc_yAxis(title = list(text = paste("Fdr()"))) %>% 
         hc_add_series(data = boot_run_fdr$Fdr,type = "spline",  name=paste("Répartition des IBNR"), color="#f0c300")%>%  ##8b0000
