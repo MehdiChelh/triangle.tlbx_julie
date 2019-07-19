@@ -1,7 +1,7 @@
 
 
-source("Fonctions_vMJ.R", encoding='UTF-8')
-source("BootChain_new_vMJ.R", encoding='UTF-8')
+source("Fonctions_vMJ.R")
+source("BootChain_new_vMJ.R")
 attach(loadNamespace("ChainLadder"), name = "ChainLadder_all")
 
 
